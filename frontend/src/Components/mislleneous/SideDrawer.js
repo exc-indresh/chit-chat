@@ -133,25 +133,26 @@ function SideDrawer() {
         p="5px 10px 5px 10px"
         borderWidth="5px"
       >
+        {/* <Text fontSize="2xl" fontFamily="Work sans" >
+          Welcome to the Chat App!!
+        </Text> */}
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-          <Button variant="ghost" onClick={onOpen}>
+          <Button variant="ghost" onClick={onOpen} >
             <i className="fas fa-search"></i>
-            <Text d={{ base: "none", md: "flex" }} px={4}>
+            <Text  px={4}  display="block" margin="auto">
               Search User
             </Text>
           </Button>
         </Tooltip>
-        <Text fontSize="2xl" fontFamily="Work sans">
-          Talk-A-Tive
-        </Text>
-        <div>
-          <Menu>
-            <MenuButton p={1}>
+        <div >
+          <Menu >
+          
+            <MenuButton p={1} >
               <NotificationBadge
                 count={notification.length}
                 effect={Effect.SCALE}
               />
-              <BellIcon fontSize="2xl" m={1} />
+              <BellIcon fontSize="2xl" m={1} width='100%' float="right" />
             </MenuButton>
             <MenuList pl={2}>
               {!notification.length && "No New Messages"}
@@ -170,8 +171,8 @@ function SideDrawer() {
               ))}
             </MenuList>
           </Menu>
-          <Menu>
-            <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
+          <Menu width="100%">
+            <MenuButton float="right" as={Button} bg="white" rightIcon={<ChevronDownIcon />} >
               <Avatar
                 size="sm"
                 cursor="pointer"
@@ -195,14 +196,14 @@ function SideDrawer() {
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
           <DrawerBody>
-            <Box d="flex" pb={2}>
+            <Box >
               <Input
                 placeholder="Search by name or email"
                 mr={2}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button onClick={handleSearch}>Go</Button>
+              <Button onClick={handleSearch}  hasArrow placement="bottom-end" onKeyDown={handleSearch}>Go</Button>
             </Box>
             {loading ? (
               <ChatLoading />

@@ -1,25 +1,25 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack ,useToast,} from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast, } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
+
 const Signup = () => {
     const [show, setShow] = useState(false);
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [confirmPassword, setConfirmPassword] = useState()
+    const [phoneNumber, setPhoneNumber] = useState(0)
     const [pic, setPic] = useState()
-    const[loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const toast = useToast()
     const history = useHistory()
 
-    const handleClick = ()=>{
+    const handleClick = () => {
         setShow(!show);
     }
-    
-    const postDetails = (pics)=>{
+
+    const postDetails = (pics) => {
         setLoading(true);
         if(pics===undefined){
             toast({
@@ -64,61 +64,60 @@ const Signup = () => {
         }
     }
 
-    const submitHandler = async ()=>{
+    const submitHandler = async () => {
         setLoading(true);
-        if(!name || !email || !password || !confirmPassword){
+        if (!name || !email || !password || !confirmPassword) {
             toast({
                 title: 'Please fill all the required (*) field.',
                 status: 'warning',
                 duration: 5000,
                 isClosable: true,
-                position:'bottom',
-              })
-              setLoading(false)
-              return 
+                position: 'bottom',
+            })
+            setLoading(false)
+            return
         }
 
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             toast({
                 title: 'Please fill all the required (*) field.',
                 status: 'warning',
                 duration: 5000,
                 isClosable: true,
-                position:'bottom',
-              })
-              return
+                position: 'bottom',
+            })
+            return
         }
 
         try {
             const config = {
-                headers:{
-                    "Content-type":"application/json",
+                headers: {
+                    "Content-type": "application/json",
                 }
             }
-            const {data} = await axios.post('/api/user',{name,email,password,pic},config)
+            const { data } = await axios.post('/api/user', { name, email, password, pic }, config)
             toast({
                 title: 'Registration Successful.',
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
-                position:'bottom',
-              })
+                position: 'bottom',
+            })
 
               localStorage.setItem("userInfo",JSON.stringify(data));
               setLoading(false);
               history.push('/chats')
-              history.go(0);
 
         } catch (error) {
             toast({
                 title: 'Error Occured.',
-                description:error.reponse.data.message,
+                description: error.reponse.data.message,
                 status: 'warning',
                 duration: 5000,
                 isClosable: true,
-                position:'bottom',
-              })
-              setLoading(false);
+                position: 'bottom',
+            })
+            setLoading(false);
         }
     }
     return (
@@ -129,16 +128,16 @@ const Signup = () => {
             </FormControl>
             <FormControl id='email' isRequired>
                 <FormLabel>Email</FormLabel>
-                <Input placeholder='Enter Your Email' onChange={(e) => setEmail(e.target.value)} type='email'/>
+                <Input placeholder='Enter Your Email' onChange={(e) => setEmail(e.target.value)} type='email' />
             </FormControl>
 
             <FormControl id='password' isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                    <Input placeholder='Enter Your Password' onChange={(e) => setPassword(e.target.value)} type={show?'text':'password'} />
+                    <Input placeholder='Enter Your Password' onChange={(e) => setPassword(e.target.value)} type={show ? 'text' : 'password'} />
                     <InputRightElement width={'4.5rem'}>
-                        <Button h={'1.75rem'} size='md' onClick={handleClick}>
-                            {show ? 'Hide' : 'Show'}
+                        <Button fontSize={25} backgroundColor={'inherit'} onClick={handleClick} >
+                            {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                         </Button>
                     </InputRightElement>
                 </InputGroup>
@@ -147,13 +146,18 @@ const Signup = () => {
             <FormControl id='confirm-password' isRequired>
                 <FormLabel>Confirm Password</FormLabel>
                 <InputGroup>
-                    <Input placeholder='Enter Your Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)} type={show?'text':'password'} />
+                    <Input placeholder='Enter Your Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)} type={show ? 'text' : 'password'} />
                     <InputRightElement width={'4.5rem'}>
-                        <Button h={'1.75rem'} size='md' onClick={handleClick}>
-                            {show ? 'Hide' : 'Show'}
+                        <Button fontSize={25} backgroundColor={'inherit'} onClick={handleClick} >
+                            {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                         </Button>
                     </InputRightElement>
                 </InputGroup>
+            </FormControl>
+
+            <FormControl id='phone-number' >
+                <FormLabel>Phone Number</FormLabel>
+                <Input placeholder='Enter Your Phone Number' onChange={(e) => setPhoneNumber(e.target.value)} maxLength={10} />
             </FormControl>
 
             <FormControl id='pic'>
@@ -161,7 +165,7 @@ const Signup = () => {
                 <Input type='file' p={1.5} accept='image/*' onChange={(e) => postDetails(e.target.files[0])} />
             </FormControl>
 
-            <Button colorScheme='blue' width={'100%'} style={{marginTop:15}} onClick={submitHandler} isLoading={loading}>
+            <Button colorScheme='cyan' width={'100%'} style={{ marginTop: 15 }} onClick={submitHandler} isLoading={loading} textColor={'aliceblue'}>
                 Sign Up
             </Button>
             <GoogleOAuthProvider clientId="184165315910-c71gf2m9hr99og2o5bjriblt1tq490op.apps.googleusercontent.com">

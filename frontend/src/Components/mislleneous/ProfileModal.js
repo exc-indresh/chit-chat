@@ -1,6 +1,7 @@
 import { ViewIcon } from '@chakra-ui/icons'
 import { Button, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure,Text } from '@chakra-ui/react'
 import React from 'react'
+import { FaRegUserCircle } from "react-icons/fa";
 const ProfileModal = ({ user, children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
@@ -8,7 +9,10 @@ const ProfileModal = ({ user, children }) => {
             {children ? (
                 <span onClick={onOpen}>{children}</span>
             ) : (
-                <IconButton display={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+               
+                     
+                    <IconButton  icon={<FaRegUserCircle />} onClick={onOpen} float="right" />
+              
             )}
             <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
                 <ModalOverlay />

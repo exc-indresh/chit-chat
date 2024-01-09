@@ -27,7 +27,7 @@ const HomePage = () => {
         borderRadius="lg"
         borderWidth="1px"
       >
-        <Text fontSize="2xl" display={'flex'} justifyContent={'center'} >Talk-A-Tive</Text>
+        <Text fontSize="2xl" display={'flex'} justifyContent={'center'} >Code Crafters Chat App</Text>
       </Box>
       <Box bg={'white'} w='100%' p={4} borderRadius='lg' borderWidth='1px'>
         <Tabs variant='soft-rounded'>
