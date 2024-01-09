@@ -11,10 +11,10 @@ import ProfileModal from "./mislleneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
-
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./mislleneous/GroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
+
 const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
@@ -205,7 +205,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             w="100%"
             h="100%"
             borderRadius="lg"
-            overflowY="hidden"
+            overflowY="auto"
           >
             {loading ? (
               <Spinner
@@ -216,8 +216,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div className="messages">
+              <div className="messages" >
                 <ScrollableChat messages={messages} />
+               
               </div>
             )}
 
@@ -240,8 +241,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <></>
               )}
               <Input
-                variant="filled"
-                bg="#E0E0E0"
+              style={{
+                background:'transparent',
+                color:'black',
+                fontWeight:'500',
+                border:'1px solid  #8b8686',
+            
+              }}
+              
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={typingHandler}

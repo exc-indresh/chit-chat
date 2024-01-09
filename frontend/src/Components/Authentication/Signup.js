@@ -2,7 +2,8 @@ import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, V
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 const Signup = () => {
     const [show, setShow] = useState(false);
     const [name, setName] = useState()
@@ -106,6 +107,7 @@ const Signup = () => {
               localStorage.setItem("userInfo",JSON.stringify(data));
               setLoading(false);
               history.push('/chats')
+              history.go(0);
 
         } catch (error) {
             toast({
@@ -162,6 +164,17 @@ const Signup = () => {
             <Button colorScheme='blue' width={'100%'} style={{marginTop:15}} onClick={submitHandler} isLoading={loading}>
                 Sign Up
             </Button>
+            <GoogleOAuthProvider clientId="184165315910-c71gf2m9hr99og2o5bjriblt1tq490op.apps.googleusercontent.com">
+                    <GoogleLogin
+                        onSuccess={credentialResponse => {
+                            console.log(credentialResponse);
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                    />;
+
+                </GoogleOAuthProvider>
         </VStack>
     )
 }
